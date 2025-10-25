@@ -93,18 +93,6 @@ npm run dev     # inicia Vite em http://localhost:5173
 - Validações (datas, viajantes, campos obrigatórios).
 - Testes de preços e smoke tests do fluxo principal.
 
-## Troubleshooting
-- Import do `CartContext`:
-  - Corrigir imports quebrados: usar `../context/CartContext` (não `../contexts/CartContext`).
-- SDK externo `@lumi.new/sdk`:
-  - Se não for usado, remover stub/arquivo. Se for usado, instalar e configurar.
-- Vite/HMR:
-  - Se ocorrer erro após ajustes: pare o dev server, limpe cache (`node_modules/.vite`), reinicie.
-- Nomes de arquivo/rota:
-  - Padronize `Accomodations` vs `Accommodations` para evitar 404.
-- Formatadores e tipos:
-  - Padronizar moeda com `Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })`.
-
 ## Deploy
 - Frontend:
   ```bash
@@ -113,25 +101,6 @@ npm run dev     # inicia Vite em http://localhost:5173
   npm run preview
   ```
 - Backend: hospedar `server.js` em um serviço simples (Railway, Render, etc.) ou rodar localmente.
-
-## Como adicionar ao GitHub (DisneyTrip)
-1. Inicializar Git (se ainda não):
-   ```bash
-   git init
-   git branch -M main
-   ```
-2. Adicionar o remoto do repositório:
-   ```bash
-   git remote add origin https://github.com/asunavlr/DisneyTrip.git
-   # Se já existir remoto e quiser trocar:
-   # git remote set-url origin https://github.com/asunavlr/DisneyTrip.git
-   ```
-3. Commitar e enviar:
-   ```bash
-   git add .
-   git commit -m "docs: add README e instruções de execução"
-   git push -u origin main
-   ```
 
 ## Licença
 Projeto para fins educacionais/demonstração. Adicione uma licença (MIT, Apache-2.0, etc.) conforme necessário.
