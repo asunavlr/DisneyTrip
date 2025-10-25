@@ -80,6 +80,7 @@ const Cart: React.FC = () => {
   };
 
   const totalPrice = getTotalPrice();
+  const totalInstallmentPrice = totalPrice / 12;
 
   if (items.length === 0) {
     return (
@@ -133,61 +134,71 @@ const Cart: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-lg p-6">
               <div className="space-y-6">
-                {items.map((cartItem, index) => (
-                  <motion.div
-                    key={`${cartItem.item.id}-${cartItem.type}`}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center space-x-4 p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow"
-                  >
-                    <img
-                      src={cartItem.item.image}
-                      alt={getItemDisplayName(cartItem.item, cartItem.type)}
-                      className="w-20 h-20 object-cover rounded-lg"
-                    />
-                    
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-800">
-                        {getItemDisplayName(cartItem.item, cartItem.type)}
-                      </h3>
-                      <div className="text-sm text-gray-600 mt-1">
-                        {cartItem.type === 'accommodation' && cartItem.nights && (
-                          <span>{cartItem.nights} noite{cartItem.nights > 1 ? 's' : ''}</span>
-                        )}
-                        {cartItem.type === 'car' && cartItem.days && (
-                          <span>{cartItem.days} dia{cartItem.days > 1 ? 's' : ''}</span>
-                        )}
-                      </div>
-                      <div className="text-lg font-bold text-green-600 mt-1">
-                        ${getItemPrice(cartItem.item, cartItem.type, cartItem.quantity, cartItem.nights, cartItem.days).toLocaleString()}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-3">
-                      <button
-                        onClick={() => handleQuantityChange(cartItem.item.id, cartItem.type, -1)}
-                        className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-                      >
-                        <Minus className="h-4 w-4" />
-                      </button>
-                      <span className="font-semibold w-8 text-center">{cartItem.quantity}</span>
-                      <button
-                        onClick={() => handleQuantityChange(cartItem.item.id, cartItem.type, 1)}
-                        className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-                      >
-                        <Plus className="h-4 w-4" />
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={() => handleRemoveItem(cartItem.item.id, cartItem.type, getItemDisplayName(cartItem.item, cartItem.type))}
-                      className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                {items.map((cartItem, index) => {
+                  const itemPrice = getItemPrice(cartItem.item, cartItem.type, cartItem.quantity, cartItem.nights, cartItem.days);
+                  const itemInstallmentPrice = itemPrice / 12;
+                  
+                  return (
+                    <motion.div
+                      key={`${cartItem.item.id}-${cartItem.type}`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className="flex items-center space-x-4 p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow"
                     >
-                      <Trash2 className="h-5 w-5" />
-                    </button>
-                  </motion.div>
-                ))}
+                      <img
+                        src={cartItem.item.image}
+                        alt={getItemDisplayName(cartItem.item, cartItem.type)}
+                        className="w-20 h-20 object-cover rounded-lg"
+                      />
+                      
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-800">
+                          {getItemDisplayName(cartItem.item, cartItem.type)}
+                        </h3>
+                        <div className="text-sm text-gray-600 mt-1">
+                          {cartItem.type === 'accommodation' && cartItem.nights && (
+                            <span>{cartItem.nights} noite{cartItem.nights > 1 ? 's' : ''}</span>
+                          )}
+                          {cartItem.type === 'car' && cartItem.days && (
+                            <span>{cartItem.days} dia{cartItem.days > 1 ? 's' : ''}</span>
+                          )}
+                        </div>
+                        <div className="mt-2">
+                          <div className="text-lg font-bold text-green-600">
+                            R$ {itemPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                          </div>
+                          <div className="text-blue-600 font-semibold text-sm">
+                            12x de R$ {itemInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-3">
+                        <button
+                          onClick={() => handleQuantityChange(cartItem.item.id, cartItem.type, -1)}
+                          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+                        >
+                          <Minus className="h-4 w-4" />
+                        </button>
+                        <span className="font-semibold w-8 text-center">{cartItem.quantity}</span>
+                        <button
+                          onClick={() => handleQuantityChange(cartItem.item.id, cartItem.type, 1)}
+                          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+                        >
+                          <Plus className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => handleRemoveItem(cartItem.item.id, cartItem.type, getItemDisplayName(cartItem.item, cartItem.type))}
+                        className="p-2 text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </button>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -207,17 +218,22 @@ const Cart: React.FC = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal ({items.length} {items.length === 1 ? 'item' : 'itens'})</span>
-                  <span>${totalPrice.toLocaleString()}</span>
+                  <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Taxa de serviço</span>
                   <span>Grátis</span>
                 </div>
                 <div className="border-t pt-4">
-                  <div className="flex justify-between text-xl font-bold text-gray-800">
+                  <div className="flex justify-between text-xl font-bold text-green-600 mb-2">
                     <span>Total</span>
-                    <span>${totalPrice.toLocaleString()}</span>
+                    <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                   </div>
+                  <div className="flex justify-between text-blue-600 font-semibold">
+                    <span>Ou 12x de</span>
+                    <span>R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 text-right mt-1">sem juros no cartão</p>
                 </div>
               </div>
 
@@ -306,8 +322,14 @@ const Cart: React.FC = () => {
                 </div>
 
                 <div className="border-t pt-4 mt-6">
-                  <div className="flex justify-between text-xl font-bold text-gray-800 mb-4">
-                    <span>Total: ${totalPrice.toLocaleString()}</span>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xl font-bold text-green-600">
+                      <span>Total: R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <div className="flex justify-between text-blue-600 font-semibold">
+                      <span>Ou 12x de R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <p className="text-sm text-gray-500 text-right">sem juros no cartão</p>
                   </div>
                 </div>
 

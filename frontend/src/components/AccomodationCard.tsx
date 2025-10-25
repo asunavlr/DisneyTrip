@@ -31,6 +31,7 @@ const AccommodationCard: React.FC<AccommodationCardProps> = ({ accommodation }) 
   };
 
   const totalPrice = accommodation.price * nights;
+  const installmentPrice = totalPrice / 12;
 
   return (
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
@@ -109,15 +110,16 @@ const AccommodationCard: React.FC<AccommodationCardProps> = ({ accommodation }) 
           </select>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <div className="text-3xl font-bold text-green-600">
-              ${totalPrice.toLocaleString()}
-            </div>
-            <p className="text-sm text-gray-500">
-              ${accommodation.price}/noite × {nights} noite{nights > 1 ? 's' : ''}
-            </p>
+        <div className="mb-6">
+          <div className="text-3xl font-bold text-green-600 mb-1">
+            R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
           </div>
+          <div className="text-blue-600 font-semibold mb-1">
+            12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+          </div>
+          <p className="text-sm text-gray-500">
+            sem juros no cartão • R$ {accommodation.price}/noite × {nights} noite{nights > 1 ? 's' : ''}
+          </p>
         </div>
 
         <button

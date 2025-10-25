@@ -28,6 +28,8 @@ const TicketCard: React.FC<TicketCardProps> = ({ ticket }) => {
     });
   };
 
+  const installmentPrice = ticket.price / 12;
+
   return (
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
       <div className="relative">
@@ -69,10 +71,13 @@ const TicketCard: React.FC<TicketCardProps> = ({ ticket }) => {
 
         <div className="flex items-center justify-between mb-6">
           <div>
-            <div className="text-3xl font-bold text-green-600">
-              ${ticket.price.toLocaleString()}
+            <div className="text-3xl font-bold text-green-600 mb-1">
+              R$ {ticket.price.toLocaleString('pt-BR')}
             </div>
-            <p className="text-sm text-gray-500">por pessoa</p>
+            <div className="text-lg text-blue-600 font-semibold">
+              12x R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <p className="text-xs text-gray-500 mt-1">sem juros no cartão</p>
           </div>
         </div>
 

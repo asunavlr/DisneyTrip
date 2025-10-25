@@ -112,60 +112,71 @@ const Home: React.FC = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {packages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
-              >
-                <div className="relative">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.name}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h3 className="text-2xl font-bold mb-1">{pkg.name}</h3>
-                    <p className="text-sm opacity-90">{pkg.duration}</p>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-gray-600 mb-4 leading-relaxed">{pkg.description}</p>
-
-                  <div className="space-y-2 mb-6">
-                    {pkg.highlights.slice(0, 3).map((highlight, highlightIndex) => (
-                      <div key={highlightIndex} className="flex items-center space-x-2 text-sm text-gray-700">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                        <span>{highlight}</span>
+            {packages.map((pkg, index) => {
+              const installmentPrice = pkg.discountPrice / 12;
+              const discount = pkg.originalPrice - pkg.discountPrice;
+              
+              return (
+                <motion.div
+                  key={pkg.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+                >
+                  <div className="relative">
+                    <img
+                      src={pkg.image}
+                      alt={pkg.name}
+                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    {discount > 0 && (
+                      <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                        Economize R$ {discount.toLocaleString('pt-BR')}
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <div className="text-3xl font-bold text-green-600">
-                        R$ {pkg.discountPrice.toLocaleString()}
-                      </div>
-                      <p className="text-sm text-gray-500">por pessoa</p>
+                    )}
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h3 className="text-2xl font-bold mb-1">{pkg.name}</h3>
+                      <p className="text-sm opacity-90">{pkg.duration}</p>
                     </div>
                   </div>
 
-                  <div className="flex space-x-2">
-                    <Link
-                      to={`/package/${pkg.id}`}
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105"
-                    >
-                      <Eye className="h-4 w-4" />
-                      <span>Ver Detalhes</span>
-                    </Link>
+                  <div className="p-6">
+                    <p className="text-gray-600 mb-4 leading-relaxed">{pkg.description}</p>
+
+                    <div className="space-y-2 mb-6">
+                      {pkg.highlights.slice(0, 3).map((highlight, highlightIndex) => (
+                        <div key={highlightIndex} className="flex items-center space-x-2 text-sm text-gray-700">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full" />
+                          <span>{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mb-6">
+                      <div className="text-3xl font-bold text-green-600 mb-1">
+                        R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </div>
+                      <div className="text-blue-600 font-semibold mb-1">
+                        12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </div>
+                      <p className="text-sm text-gray-500">sem juros no cartão</p>
+                    </div>
+
+                    <div className="flex space-x-2">
+                      <Link
+                        to={`/package/${pkg.id}`}
+                        className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2 hover:scale-105"
+                      >
+                        <Eye className="h-4 w-4" />
+                        <span>Ver Detalhes</span>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

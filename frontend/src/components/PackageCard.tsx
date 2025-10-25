@@ -34,6 +34,9 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
     navigate(`/package/${pkg.id}`);
   };
 
+  // Calcular preço parcelado
+  const installmentPrice = pkg.discountPrice / 12;
+
   return (
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
       <div className="relative">
@@ -42,9 +45,11 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
           alt={pkg.name}
           className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
         />
-        <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-          -{pkg.discount}%
-        </div>
+        {pkg.discount > 0 && (
+          <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+            -{pkg.discount}%
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="absolute bottom-4 left-4 text-white">
           <h3 className="text-2xl font-bold mb-1">{pkg.name}</h3>
@@ -67,17 +72,28 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
           ))}
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <div className="flex items-center space-x-2">
+        <div className="mb-6">
+          {pkg.discount > 0 && (
+            <div className="flex items-center space-x-2 mb-2">
               <span className="text-gray-500 line-through text-lg">
-                ${pkg.originalPrice.toLocaleString()}
+                R$ {pkg.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
               </span>
-              <span className="text-3xl font-bold text-green-600">
-                ${pkg.discountPrice.toLocaleString()}
+              <span className="text-red-500 font-semibold text-sm">
+                -{pkg.discount}%
               </span>
             </div>
-            <p className="text-sm text-gray-500">por pessoa</p>
+          )}
+          
+          <div className="space-y-2">
+            <div className="text-3xl font-bold text-green-600">
+              R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </div>
+            
+            <div className="text-blue-600 font-semibold text-lg">
+              12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </div>
+            
+            <p className="text-sm text-gray-500">sem juros no cartão</p>
           </div>
         </div>
 

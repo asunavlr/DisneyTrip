@@ -31,6 +31,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
   };
 
   const totalPrice = car.price * days;
+  const installmentPrice = totalPrice / 12;
 
   return (
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
@@ -94,15 +95,16 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
           </select>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <div className="text-3xl font-bold text-green-600">
-              ${totalPrice.toLocaleString()}
-            </div>
-            <p className="text-sm text-gray-500">
-              ${car.price}/dia × {days} dia{days > 1 ? 's' : ''}
-            </p>
+        <div className="mb-6">
+          <div className="text-3xl font-bold text-green-600 mb-1">
+            ${totalPrice.toLocaleString('pt-BR')}
           </div>
+          <div className="text-blue-600 font-semibold mb-1">
+            12x de ${installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+          </div>
+          <p className="text-sm text-gray-500">
+            sem juros no cartão • ${car.price}/dia × {days} dia{days > 1 ? 's' : ''}
+          </p>
         </div>
 
         <button
