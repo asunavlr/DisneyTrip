@@ -72,7 +72,7 @@ const TicketCard: React.FC<TicketCardProps> = ({ ticket }) => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <div className="text-3xl font-bold text-green-600 mb-1">
-              R$ {ticket.price.toLocaleString('pt-BR')}
+              R$ {ticket.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             <div className="text-lg text-blue-600 font-semibold">
               12x R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

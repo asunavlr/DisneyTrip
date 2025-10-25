@@ -34,6 +34,7 @@ const PackageDetails: React.FC = () => {
   const packageTickets = tickets.filter(t => pkg.ticketIds.includes(t.id));
 
   const totalPrice = pkg.discountPrice * numberOfPeople;
+  const totalInstallmentPrice = totalPrice / 12;
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => 
@@ -338,7 +339,7 @@ const PackageDetails: React.FC = () => {
               <div className="mb-6 space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Preço por pessoa:</span>
-                  <span className="font-semibold">R$ {pkg.discountPrice.toLocaleString()}</span>
+                  <span className="font-semibold">R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Número de pessoas:</span>
@@ -348,9 +349,14 @@ const PackageDetails: React.FC = () => {
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-bold text-gray-800">Total:</span>
                     <span className="text-2xl font-bold text-green-600">
-                      R$ {totalPrice.toLocaleString()}
+                      R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
                   </div>
+                  <div className="flex justify-between items-center text-blue-600 font-semibold mt-2">
+                    <span>Ou 12x de</span>
+                    <span>R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                  <p className="text-xs text-gray-500 text-right mt-1">sem juros no cartão</p>
                 </div>
               </div>
 

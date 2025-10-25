@@ -133,7 +133,7 @@ const Home: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     {discount > 0 && (
                       <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                        Economize R$ {discount.toLocaleString('pt-BR')}
+                        Economize R$ {discount.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                     )}
                     <div className="absolute bottom-4 left-4 text-white">
@@ -156,10 +156,10 @@ const Home: React.FC = () => {
 
                     <div className="mb-6">
                       <div className="text-3xl font-bold text-green-600 mb-1">
-                        R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       <div className="text-blue-600 font-semibold mb-1">
-                        12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </div>
                       <p className="text-sm text-gray-500">sem juros no cartão</p>
                     </div>

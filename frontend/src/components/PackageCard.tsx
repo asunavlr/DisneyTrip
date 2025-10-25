@@ -76,7 +76,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
           {pkg.discount > 0 && (
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-gray-500 line-through text-lg">
-                R$ {pkg.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                R$ {pkg.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
               <span className="text-red-500 font-semibold text-sm">
                 -{pkg.discount}%
@@ -86,11 +86,11 @@ const PackageCard: React.FC<PackageCardProps> = ({ package: pkg }) => {
           
           <div className="space-y-2">
             <div className="text-3xl font-bold text-green-600">
-              R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              R$ {pkg.discountPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             
             <div className="text-blue-600 font-semibold text-lg">
-              12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+              12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             
             <p className="text-sm text-gray-500">sem juros no cartão</p>

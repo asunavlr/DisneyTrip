@@ -97,13 +97,13 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
 
         <div className="mb-6">
           <div className="text-3xl font-bold text-green-600 mb-1">
-            ${totalPrice.toLocaleString('pt-BR')}
+            R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
           <div className="text-blue-600 font-semibold mb-1">
-            12x de ${installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            12x de R$ {installmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
           <p className="text-sm text-gray-500">
-            sem juros no cartão • ${car.price}/dia × {days} dia{days > 1 ? 's' : ''}
+            sem juros no cartão • R$ {car.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/dia × {days} dia{days > 1 ? 's' : ''}
           </p>
         </div>
 

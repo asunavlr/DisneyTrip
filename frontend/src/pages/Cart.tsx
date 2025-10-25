@@ -166,10 +166,10 @@ const Cart: React.FC = () => {
                         </div>
                         <div className="mt-2">
                           <div className="text-lg font-bold text-green-600">
-                            R$ {itemPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            R$ {itemPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </div>
                           <div className="text-blue-600 font-semibold text-sm">
-                            12x de R$ {itemInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            12x de R$ {itemInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </div>
                         </div>
                       </div>
@@ -218,7 +218,7 @@ const Cart: React.FC = () => {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal ({items.length} {items.length === 1 ? 'item' : 'itens'})</span>
-                  <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                  <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Taxa de serviço</span>
@@ -227,11 +227,11 @@ const Cart: React.FC = () => {
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-xl font-bold text-green-600 mb-2">
                     <span>Total</span>
-                    <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    <span>R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   </div>
                   <div className="flex justify-between text-blue-600 font-semibold">
                     <span>Ou 12x de</span>
-                    <span>R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    <span>R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                   </div>
                   <p className="text-sm text-gray-500 text-right mt-1">sem juros no cartão</p>
                 </div>
@@ -324,10 +324,10 @@ const Cart: React.FC = () => {
                 <div className="border-t pt-4 mt-6">
                   <div className="space-y-2">
                     <div className="flex justify-between text-xl font-bold text-green-600">
-                      <span>Total: R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                      <span>Total: R$ {totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <div className="flex justify-between text-blue-600 font-semibold">
-                      <span>Ou 12x de R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                      <span>Ou 12x de R$ {totalInstallmentPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                     <p className="text-sm text-gray-500 text-right">sem juros no cartão</p>
                   </div>
